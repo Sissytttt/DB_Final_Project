@@ -4,24 +4,21 @@ import pymysql.cursors
 
 #Initialize the app from Flask
 app = Flask(__name__)
-#
-#Configure MySQL
-#憨梅的
-# conn = pymysql.connect(host='localhost',
+
+conn = pymysql.connect(host='localhost',
+                        user='root',
+                        password='',
+                        db='air ticket reservation',
+                        charset='utf8mb4',
+                        cursorclass=pymysql.cursors.DictCursor)
+
+# conn = pymysql.connect(host='127.0.0.1',
 #                        user='root',
 #                        password='',
-#                        db='air ticket reservation',
+#                        db='blog',
 #                        charset='utf8mb4',
+# 					   port = 3308,
 #                        cursorclass=pymysql.cursors.DictCursor)
-
-#田嘻嘻的
-conn = pymysql.connect(host='127.0.0.1',
-                       user='root',
-                       password='',
-                       db='blog',
-                       charset='utf8mb4',
-					   port = 3308,
-                       cursorclass=pymysql.cursors.DictCursor)
 
 
 #Define a route to hello function
@@ -51,7 +48,7 @@ def BAregister():
 @app.route('/airline_staff_register')
 def ASregister():
 	return render_template('airline_staff_register.html')
-"""
+
 #Authenticates the login
 @app.route('/loginAuth', methods=['GET', 'POST'])
 def loginAuth():
@@ -135,7 +132,7 @@ def post():
 def logout():
 	session.pop('username')
 	return redirect('/')
-"""
+
 app.secret_key = 'some key that you will never guess'
 #Run the app on localhost port 5000
 #debug = True -> you don't have to restart flask
