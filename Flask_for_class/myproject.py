@@ -6,12 +6,23 @@ import pymysql.cursors
 app = Flask(__name__)
 #
 #Configure MySQL
-conn = pymysql.connect(host='localhost',
+#憨梅的
+# conn = pymysql.connect(host='localhost',
+#                        user='root',
+#                        password='',
+#                        db='air ticket reservation',
+#                        charset='utf8mb4',
+#                        cursorclass=pymysql.cursors.DictCursor)
+
+#田嘻嘻的
+conn = pymysql.connect(host='127.0.0.1',
                        user='root',
                        password='',
-                       db='air ticket reservation',
+                       db='blog',
                        charset='utf8mb4',
+					   port = 3308,
                        cursorclass=pymysql.cursors.DictCursor)
+
 
 #Define a route to hello function
 
