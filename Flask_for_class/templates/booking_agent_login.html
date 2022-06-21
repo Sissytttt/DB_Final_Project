@@ -3,9 +3,9 @@
 </head>
 <body>
 <form action="/loginAuth" method="POST">
-	<input type="text" name = "userame" placeholder="userame" required/> </br>
+	<input type="text" name = "BA_Email" placeholder="Booking Agent Email" required/> </br>
 	<input type="password" name = "password" placeholder="password" required/></br>
-	<input type="submit" value = Login />
+	<input type="submit" value = BA_Login />
 	{% if error %}
 		<p class="error"><strong>Error:</strong> {{error}}</p>
 	{% endif %}
