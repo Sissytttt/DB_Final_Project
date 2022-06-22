@@ -49,9 +49,17 @@ def BAregister():
 def ASregister():
 	return render_template('airline_staff_register.html')
 
+@app.route('/publicsearch_location')
+def PsearchL():
+	return render_template('publicsearch_location.html')
+
+@app.route('/publicsearch_flight')
+def PsearchF():
+	return render_template('publicsearch_flight.html')
+
 #Authenticates the login
-@app.route('/loginAuth', methods=['GET', 'POST'])
-def loginAuth():
+@app.route('/CloginAuth', methods=['GET', 'POST'])
+def CloginAuth():
 	#grabs information from the forms
 	username = request.form['username']
 	password = request.form['password']
@@ -70,15 +78,67 @@ def loginAuth():
 		#creates a session for the the user
 		#session is a built in
 		session['username'] = username
-		return redirect(url_for('home'))
+		return redirect(url_for('customer_home'))
 	else:
 		#returns an error message to the html page
 		error = 'Invalid login or username'
-		return render_template('login.html', error=error)
+		return render_template('customer_login.html', error=error)
+
+@app.route('/BAloginAuth', methods=['GET', 'POST'])
+def BAloginAuth():
+	#grabs information from the forms
+	username = request.form['username']
+	password = request.form['password']
+
+	#cursor used to send queries
+	cursor = conn.cursor()
+	#executes query
+	query = 'SELECT * FROM user WHERE username = %s and password = %s'
+	cursor.execute(query, (username, password))
+	#stores the results in a variable
+	data = cursor.fetchone()
+	#use fetchall() if you are expecting more than 1 data row
+	cursor.close()
+	error = None
+	if(data):
+		#creates a session for the the user
+		#session is a built in
+		session['username'] = username
+		return redirect(url_for('booking_agent_home'))
+	else:
+		#returns an error message to the html page
+		error = 'Invalid login or username'
+		return render_template('booking_agent_login.html', error=error)
+
+@app.route('/ASloginAuth', methods=['GET', 'POST'])
+def ASloginAuth():
+	#grabs information from the forms
+	username = request.form['username']
+	password = request.form['password']
+
+	#cursor used to send queries
+	cursor = conn.cursor()
+	#executes query
+	query = 'SELECT * FROM user WHERE username = %s and password = %s'
+	cursor.execute(query, (username, password))
+	#stores the results in a variable
+	data = cursor.fetchone()
+	#use fetchall() if you are expecting more than 1 data row
+	cursor.close()
+	error = None
+	if(data):
+		#creates a session for the the user
+		#session is a built in
+		session['username'] = username
+		return redirect(url_for('airline_staff_home'))
+	else:
+		#returns an error message to the html page
+		error = 'Invalid login or username'
+		return render_template('airline_staff_login.html', error=error)
 
 #Authenticates the register
-@app.route('/registerAuth', methods=['GET', 'POST'])
-def registerAuth():
+@app.route('/CregisterAuth', methods=['GET', 'POST'])
+def CregisterAuth():
 	#grabs information from the forms
 	username = request.form['username']
 	password = request.form['password']
@@ -95,7 +155,7 @@ def registerAuth():
 	if(data):
 		#If the previous query returns data, then user exists
 		error = "This user already exists"
-		return render_template('register.html', error = error)
+		return render_template('customer_register.html', error = error)
 	else:
 		ins = 'INSERT INTO user VALUES(%s, %s)'
 		cursor.execute(ins, (username, password))
@@ -103,6 +163,146 @@ def registerAuth():
 		cursor.close()
 		return render_template('index.html')
 
+@app.route('/BAregisterAuth', methods=['GET', 'POST'])
+def BAregisterAuth():
+	#grabs information from the forms
+	username = request.form['username']
+	password = request.form['password']
+
+	#cursor used to send queries
+	cursor = conn.cursor()
+	#executes query
+	query = 'SELECT * FROM user WHERE username = %s'
+	cursor.execute(query, (username))
+	#stores the results in a variable
+	data = cursor.fetchone()
+	#use fetchall() if you are expecting more than 1 data row
+	error = None
+	if(data):
+		#If the previous query returns data, then user exists
+		error = "This user already exists"
+		return render_template('booking_agent_register.html', error = error)
+	else:
+		ins = 'INSERT INTO user VALUES(%s, %s)'
+		cursor.execute(ins, (username, password))
+		conn.commit()
+		cursor.close()
+		return render_template('index.html')
+
+@app.route('/ASregisterAuth', methods=['GET', 'POST'])
+def ASregisterAuth():
+	#grabs information from the forms
+	username = request.form['username']
+	password = request.form['password']
+
+	#cursor used to send queries
+	cursor = conn.cursor()
+	#executes query
+	query = 'SELECT * FROM user WHERE username = %s'
+	cursor.execute(query, (username))
+	#stores the results in a variable
+	data = cursor.fetchone()
+	#use fetchall() if you are expecting more than 1 data row
+	error = None
+	if(data):
+		#If the previous query returns data, then user exists
+		error = "This user already exists"
+		return render_template('airline_staff_register.html', error = error)
+	else:
+		ins = 'INSERT INTO user VALUES(%s, %s)'
+		cursor.execute(ins, (username, password))
+		conn.commit()
+		cursor.close()
+		return render_template('index.html')
+
+@app.route('/customer_home')
+def customer_home():
+	return render_template('customer_home.html')
+
+@app.route('/booking_agent_home')
+def booking_agent_home():
+	return render_template('booking_agent_home.html')
+
+@app.route('/airline_staff_home')
+def airline_staff_home():
+	return render_template('airline_staff_home.html')
+
+@app.route('/customer_view_my_flights')
+def customer_view_my_flights():
+	return render_template('customer_view_my_flights.html')
+
+@app.route('/customer_purchase_tickets')
+def customer_purchase_tickets():
+	return render_template('customer_purchase_tickets.html')
+
+@app.route('/customer_search_flights')
+def customer_search_flights():
+	return render_template('customer_search_flights.html')
+
+@app.route('/customer_track_my_spending')
+def customer_track_my_spending():
+	return render_template('customer_track_my_spending.html')
+
+@app.route('/booking_agent_view_my_flights')
+def booking_agent_view_my_flights():
+	return render_template('booking_agent_view_my_flights.html')
+
+@app.route('/booking_agent_purchase_tickets')
+def booking_agent_purchase_tickets():
+	return render_template('booking_agent_purchase_tickets.html')
+
+@app.route('/booking_agent_search_flights')
+def booking_agent_search_flights():
+	return render_template('booking_agent_search_flights.html')
+
+@app.route('/booking_agent_view_my_commission')
+def booking_agent_view_my_commission():
+	return render_template('booking_agent_view_my_commission.html')
+
+@app.route('/booking_agent_view_top_customers')
+def booking_agent_view_top_customers():
+	return render_template('booking_agent_view_top_customers.html')
+
+@app.route('/airline_staff_view_my_flights')
+def airline_staff_view_my_flights():
+	return render_template('airline_staff_view_my_flights.html')
+
+@app.route('/airline_staff_create_flights')
+def airline_staff_create_flights():
+	return render_template('airline_staff_create_flights.html')
+
+@app.route('/airline_staff_change_flight_status')
+def airline_staff_change_flight_status():
+	return render_template('airline_staff_change_flight_status.html')
+
+@app.route('/airline_staff_add_airplane')
+def airline_staff_add_airplane():
+	return render_template('airline_staff_add_airplane.html')
+
+@app.route('/airline_staff_add_airport')
+def airline_staff_add_airport():
+	return render_template('airline_staff_add_airport.html')
+
+@app.route('/airline_staff_view_booking_agents')
+def airline_staff_view_booking_agents():
+	return render_template('airline_staff_view_booking_agents.html')
+
+@app.route('/airline_staff_view_frequent_customers')
+def airline_staff_view_frequent_customers():
+	return render_template('airline_staff_view_frequent_customers.html')
+
+@app.route('/airline_staff_view_reports')
+def airline_staff_view_reports():
+	return render_template('airline_staff_view_reports.html')
+
+@app.route('/airline_staff_comparison_of_revenue_earned')
+def airline_staff_comparison_of_revenue_earned():
+	return render_template('airline_staff_comparison_of_revenue_earned.html')
+
+@app.route('/airline_staff_view_top_destinations')
+def airline_staff_view_top_destinations():
+	return render_template('airline_staff_view_top_destinations.html')
+"""
 @app.route('/home')
 def home():
     
@@ -127,7 +327,7 @@ def post():
 	conn.commit()
 	cursor.close()
 	return redirect(url_for('home'))
-
+"""
 @app.route('/logout')
 def logout():
 	session.pop('username')
