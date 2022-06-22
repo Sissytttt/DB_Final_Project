@@ -5,20 +5,20 @@ import pymysql.cursors
 #Initialize the app from Flask
 app = Flask(__name__)
 
-conn = pymysql.connect(host='localhost',
-                        user='root',
-                        password='',
-                        db='airlineticketsystem',
-                        charset='utf8mb4',
-                        cursorclass=pymysql.cursors.DictCursor)
+# conn = pymysql.connect(host='localhost',
+#                         user='root',
+#                         password='',
+#                         db='airlineticketsystem',
+#                         charset='utf8mb4',
+#                         cursorclass=pymysql.cursors.DictCursor)
 
-# conn = pymysql.connect(host='127.0.0.1',
-#                        user='root',
-#                        password='',
-#                        db='airlineticketsystem',
-#                        charset='utf8mb4',
-# 					   port = 3308,
-#                        cursorclass=pymysql.cursors.DictCursor)
+conn = pymysql.connect(host='127.0.0.1',
+                       user='root',
+                       password='',
+                       db='airlineticketsystem',
+                       charset='utf8mb4',
+					   port = 3308,
+                       cursorclass=pymysql.cursors.DictCursor)
 
 
 #Define a route to hello function
@@ -65,13 +65,13 @@ def PsearchF():
 @app.route('/CloginAuth', methods=['GET', 'POST'])
 def CloginAuth():
 	#grabs information from the forms
-	username = request.form['username']
+	username = request.form['C_Email']
 	password = request.form['password']
 
 	#cursor used to send queries
 	cursor = conn.cursor()
 	#executes query
-	query = 'SELECT * FROM user WHERE username = %s and password = %s'
+	query = 'SELECT * FROM customer WHERE customer_email = %s and password = %s'
 	cursor.execute(query, (username, password))
 	#stores the results in a variable
 	data = cursor.fetchone()
@@ -81,7 +81,7 @@ def CloginAuth():
 	if(data):
 		#creates a session for the the user
 		#session is a built in
-		session['username'] = username
+		session['C_Email'] = username
 		return redirect(url_for('customer_home'))
 	else:
 		#returns an error message to the html page
@@ -107,7 +107,7 @@ def BAloginAuth():
 	if(data):
 		#creates a session for the the user
 		#session is a built in
-		session['username'] = username
+		session['BA_Email'] = username
 		return redirect(url_for('booking_agent_home'))
 	else:
 		#returns an error message to the html page
@@ -123,7 +123,7 @@ def ASloginAuth():
 	#cursor used to send queries
 	cursor = conn.cursor()
 	#executes query
-	query = 'SELECT * FROM user WHERE username = %s and password = %s'
+	query = 'SELECT * FROM airline_staff WHERE username = %s and password = %s'
 	cursor.execute(query, (username, password))
 	#stores the results in a variable
 	data = cursor.fetchone()
@@ -133,7 +133,7 @@ def ASloginAuth():
 	if(data):
 		#creates a session for the the user
 		#session is a built in
-		session['username'] = username
+		session['AS_Username'] = username
 		return redirect(url_for('airline_staff_home'))
 	else:
 		#returns an error message to the html page
@@ -146,14 +146,24 @@ def ASloginAuth():
 @app.route('/CregisterAuth', methods=['GET', 'POST'])
 def CregisterAuth():
 	#grabs information from the forms
-	username = request.form['username']
+	customer_email = request.form['customer_email']
+	name = request.form['name']
 	password = request.form['password']
+	building_num = request.form['building_num']
+	street = request.form['street']
+	city = request.form['city']
+	state = request.form['state']
+	phone_number = request.form['phone_number']
+	passport_number = request.form['passport_number']
+	passport_expiration = request.form['passport_expiration']
+	passport_country = request.form['passport_country']
+	birth_of_date = request.form['birth_of_date']
 
 	#cursor used to send queries
 	cursor = conn.cursor()
 	#executes query
-	query = 'SELECT * FROM user WHERE username = %s'
-	cursor.execute(query, (username))
+	query = 'SELECT * FROM customer WHERE customer_email = %s'
+	cursor.execute(query, (customer_email))
 	#stores the results in a variable
 	data = cursor.fetchone()
 	#use fetchall() if you are expecting more than 1 data row
@@ -163,8 +173,8 @@ def CregisterAuth():
 		error = "This user already exists"
 		return render_template('customer_register.html', error = error)
 	else:
-		ins = 'INSERT INTO user VALUES(%s, %s)'
-		cursor.execute(ins, (username, password))
+		ins = 'INSERT INTO customer VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)'
+		cursor.execute(ins, (customer_email, name, password, building_num, street, city, state, phone_number, passport_number, passport_expiration, passport_country, birth_of_date))
 		conn.commit()
 		cursor.close()
 		return render_template('index.html')
@@ -172,13 +182,14 @@ def CregisterAuth():
 @app.route('/BAregisterAuth', methods=['GET', 'POST'])
 def BAregisterAuth():
 	#grabs information from the forms
-	username = request.form['username']
+	username = request.form['BAusername']
 	password = request.form['password']
+	booking_agent_id = request.form['booking_agent_id']
 
 	#cursor used to send queries
 	cursor = conn.cursor()
 	#executes query
-	query = 'SELECT * FROM user WHERE username = %s'
+	query = 'SELECT * FROM booking_agent WHERE agent_email = %s'
 	cursor.execute(query, (username))
 	#stores the results in a variable
 	data = cursor.fetchone()
@@ -189,8 +200,8 @@ def BAregisterAuth():
 		error = "This user already exists"
 		return render_template('booking_agent_register.html', error = error)
 	else:
-		ins = 'INSERT INTO user VALUES(%s, %s)'
-		cursor.execute(ins, (username, password))
+		ins = 'INSERT INTO booking_agent VALUES(%s, %s, %s)'
+		cursor.execute(ins, (username, password, booking_agent_id))
 		conn.commit()
 		cursor.close()
 		return render_template('index.html')
@@ -198,14 +209,17 @@ def BAregisterAuth():
 @app.route('/ASregisterAuth', methods=['GET', 'POST'])
 def ASregisterAuth():
 	#grabs information from the forms
-	username = request.form['username']
+	AS_Username = request.form['AS_Username']
 	password = request.form['password']
-
+	first_name = request.form['first_name']
+	last_name = request.form['last_name']
+	date_of_birth = request.form['date_of_birth']
+	airline_name = request.form['airline_name']
 	#cursor used to send queries
 	cursor = conn.cursor()
 	#executes query
-	query = 'SELECT * FROM user WHERE username = %s'
-	cursor.execute(query, (username))
+	query = 'SELECT * FROM airline_staff WHERE username = %s'
+	cursor.execute(query, (AS_Username))
 	#stores the results in a variable
 	data = cursor.fetchone()
 	#use fetchall() if you are expecting more than 1 data row
@@ -215,8 +229,8 @@ def ASregisterAuth():
 		error = "This user already exists"
 		return render_template('airline_staff_register.html', error = error)
 	else:
-		ins = 'INSERT INTO user VALUES(%s, %s)'
-		cursor.execute(ins, (username, password))
+		ins = 'INSERT INTO airline_staff VALUES(%s, %s, %s, %s, %s, %s)'
+		cursor.execute(ins, (AS_Username, password, first_name, last_name, date_of_birth, airline_name))
 		conn.commit()
 		cursor.close()
 		return render_template('index.html')
