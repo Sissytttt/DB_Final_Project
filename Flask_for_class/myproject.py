@@ -5,20 +5,20 @@ import pymysql.cursors
 #Initialize the app from Flask
 app = Flask(__name__)
 
-# conn = pymysql.connect(host='localhost',
-#                         user='root',
-#                         password='',
-#                         db='air ticket reservation',
-#                         charset='utf8mb4',
-#                         cursorclass=pymysql.cursors.DictCursor)
+conn = pymysql.connect(host='localhost',
+                        user='root',
+                        password='',
+                        db='airlineticketsystem',
+                        charset='utf8mb4',
+                        cursorclass=pymysql.cursors.DictCursor)
 
-conn = pymysql.connect(host='127.0.0.1',
-                       user='root',
-                       password='',
-                       db='airlineticketsystem',
-                       charset='utf8mb4',
-					   port = 3308,
-                       cursorclass=pymysql.cursors.DictCursor)
+# conn = pymysql.connect(host='127.0.0.1',
+#                        user='root',
+#                        password='',
+#                        db='airlineticketsystem',
+#                        charset='utf8mb4',
+# 					   port = 3308,
+#                        cursorclass=pymysql.cursors.DictCursor)
 
 
 #Define a route to hello function
@@ -28,6 +28,10 @@ def index():
 	return render_template('index.html')
 
 #Define route for login
+@app.route('/customer_login')
+def Clogin():
+	return render_template('customer_login.html')
+
 @app.route('/booking_agent_login')
 def BAlogin():
 	return render_template('booking_agent_login.html')
