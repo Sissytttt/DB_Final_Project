@@ -5,20 +5,20 @@ import pymysql.cursors
 #Initialize the app from Flask
 app = Flask(__name__)
 
-conn = pymysql.connect(host='localhost',
-                        user='root',
-                        password='',
-                        db='air ticket reservation',
-                        charset='utf8mb4',
-                        cursorclass=pymysql.cursors.DictCursor)
+# conn = pymysql.connect(host='localhost',
+#                         user='root',
+#                         password='',
+#                         db='air ticket reservation',
+#                         charset='utf8mb4',
+#                         cursorclass=pymysql.cursors.DictCursor)
 
-# conn = pymysql.connect(host='127.0.0.1',
-#                        user='root',
-#                        password='',
-#                        db='blog',
-#                        charset='utf8mb4',
-# 					   port = 3308,
-#                        cursorclass=pymysql.cursors.DictCursor)
+conn = pymysql.connect(host='127.0.0.1',
+                       user='root',
+                       password='',
+                       db='airlineticketsystem',
+                       charset='utf8mb4',
+					   port = 3308,
+                       cursorclass=pymysql.cursors.DictCursor)
 
 
 #Define a route to hello function
@@ -57,7 +57,7 @@ def PsearchL():
 def PsearchF():
 	return render_template('publicsearch_flight.html')
 
-#Authenticates the login
+#---------------------------------Authenticates the login----------------------------------------
 @app.route('/CloginAuth', methods=['GET', 'POST'])
 def CloginAuth():
 	#grabs information from the forms
@@ -87,13 +87,13 @@ def CloginAuth():
 @app.route('/BAloginAuth', methods=['GET', 'POST'])
 def BAloginAuth():
 	#grabs information from the forms
-	username = request.form['username']
+	username = request.form['BA_Email']
 	password = request.form['password']
 
 	#cursor used to send queries
 	cursor = conn.cursor()
 	#executes query
-	query = 'SELECT * FROM user WHERE username = %s and password = %s'
+	query = 'SELECT * FROM booking_agent WHERE agent_email = %s and password = %s'
 	cursor.execute(query, (username, password))
 	#stores the results in a variable
 	data = cursor.fetchone()
@@ -113,7 +113,7 @@ def BAloginAuth():
 @app.route('/ASloginAuth', methods=['GET', 'POST'])
 def ASloginAuth():
 	#grabs information from the forms
-	username = request.form['username']
+	username = request.form['AS_Username']
 	password = request.form['password']
 
 	#cursor used to send queries
@@ -136,7 +136,9 @@ def ASloginAuth():
 		error = 'Invalid login or username'
 		return render_template('airline_staff_login.html', error=error)
 
-#Authenticates the register
+
+
+#-----------------------------------Authenticates the register----------------------------------
 @app.route('/CregisterAuth', methods=['GET', 'POST'])
 def CregisterAuth():
 	#grabs information from the forms
@@ -214,6 +216,8 @@ def ASregisterAuth():
 		conn.commit()
 		cursor.close()
 		return render_template('index.html')
+
+
 
 @app.route('/customer_home')
 def customer_home():
@@ -302,6 +306,8 @@ def airline_staff_comparison_of_revenue_earned():
 @app.route('/airline_staff_view_top_destinations')
 def airline_staff_view_top_destinations():
 	return render_template('airline_staff_view_top_destinations.html')
+
+	
 """
 @app.route('/home')
 def home():
