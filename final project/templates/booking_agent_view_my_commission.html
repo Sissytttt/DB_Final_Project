@@ -1,0 +1,32 @@
+<html>
+<head>
+</head>
+<body>
+
+
+<style type="text/css">
+	table, th, td{
+		border: 1px solid black;
+	}
+</style>
+
+<table>
+	<th>Total commission</th>
+	<th>Average commission</th>
+	<th>number of tickets sold</th>
+
+{% for line in data %}
+	<tr>
+		<td>{{line['total_commission']}}</td>
+		<td>{{line['average_commission']}}</td>
+		<td>{{line['number_of_ticket_sold']}}</td>
+	</tr>
+{% endfor %}
+</table>
+
+<a href="/BA_logout">Logout</a>
+
+</body>
+
+
+</html>

@@ -1,0 +1,27 @@
+<html>
+<head>
+</head>
+<body>
+
+<style type="text/css">
+	table, th, td{
+		border: 1px solid black;
+	}
+</style>
+
+<table>
+	<th>customer email</th>
+
+{% for line in data %}
+	<tr>
+		<td>{{line['customer_email']}}</td>
+	</tr>
+{% endfor %}
+</table>
+
+<a href="/BA_logout">Logout</a>
+
+</body>
+
+
+</html>

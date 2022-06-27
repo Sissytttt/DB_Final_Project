@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+</head>
+
+<body>
+{% if not message %}
+	<a href="/booking_agent_view_top_customer_money">Order by Money</a>
+	<a href="/booking_agent_view_top_customer_order">Order by Order Number</a>
+
+{% endif %}
+
+
+{% if message %}
+	<a href="/BA_logout">Logout</a>
+	</br>
+	</br>
+
+{% endif %}
+</body>
+
+</html>

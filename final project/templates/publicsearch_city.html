@@ -1,0 +1,51 @@
+<html>
+<head>
+</head>
+<body>
+
+<form action="/publicsearch_city_result" method="POST">
+	<input type="text" name = "departureCity" placeholder="DepartureCity" required/> </br>
+	<input type="text" name = "arrivalCity" placeholder="ArrivalCity" required/></br>
+	<input type="text" name = "departureAirport" placeholder="DepartureAirport" required/> </br>
+	<input type="text" name = "arrivalAirport" placeholder="ArrivalAirport" required/></br>
+	<input type="submit" value = Submit />
+</form>
+
+<style type="text/css">
+	table, th, td{
+		border: 1px solid black;
+	}
+</style>
+
+<table>
+	<th>airline_name</th>
+	<th>flight_num</th>
+	<th>depart_time</th>
+	<th>arrive_time</th>
+	<th>airplane_id</th>
+	<th>arrive_airport_name</th>
+	<th>depart_airport_name</th>
+	<th>status</th>
+	<th>price</th>
+
+{% for line in posts %}
+	<tr>
+		<td>{{line['airline_name']}}</td>
+		<td>{{line['flight_num']}}</td>
+		<td>{{line['depart_time']}}</td>
+		<td>{{line['arrive_time']}}</td>
+		<td>{{line['airplane_id']}}</td>
+		<td>{{line['arrive_airport_name']}}</td>
+		<td>{{line['depart_airport_name']}}</td>
+		<td>{{line['status']}}</td>
+		<td>{{line['price']}}</td>
+
+	</tr>
+{% endfor %}
+</table>
+
+
+</body>
+
+
+</html>

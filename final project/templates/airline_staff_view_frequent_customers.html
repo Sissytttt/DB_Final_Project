@@ -1,0 +1,39 @@
+<html>
+<head>
+</head>
+<body>
+
+<style type="text/css">
+	table, th, td{
+		border: 1px solid black;
+	}
+</style>
+
+<table>
+	<th>email</th>
+
+{% for line in posts %}
+	<tr>
+		<td>{{line['agent_email']}}</td>
+	</tr>
+{% endfor %}
+</table>
+
+<table>
+	<th>email</th>
+	<th>id</th>
+
+{% for line in posts %}
+	<tr>
+		<td>{{line['agent_email']}}</td>
+		<td>{{line['booking_agent_id']}}</td>
+	</tr>
+{% endfor %}
+</table>
+
+<a href="/logout">Logout</a>
+
+</body>
+
+
+</html>

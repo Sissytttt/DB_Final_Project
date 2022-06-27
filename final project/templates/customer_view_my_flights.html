@@ -1,0 +1,45 @@
+<html>
+<head>
+</head>
+<body>
+
+
+<style type="text/css">
+	table, th, td{
+		border: 1px solid black;
+	}
+</style>
+
+<table>
+	<th>airline_name</th>
+	<th>flight_num</th>
+	<th>depart_time</th>
+	<th>arrive_time</th>
+	<th>airplane_id</th>
+	<th>arrive_airport_name</th>
+	<th>depart_airport_name</th>
+	<th>status</th>
+	<th>price</th>
+
+{% for line in data %}
+	<tr>
+		<td>{{line['airline_name']}}</td>
+		<td>{{line['flight_num']}}</td>
+		<td>{{line['depart_time']}}</td>
+		<td>{{line['arrive_time']}}</td>
+		<td>{{line['airplane_id']}}</td>
+		<td>{{line['arrive_airport_name']}}</td>
+		<td>{{line['depart_airport_name']}}</td>
+		<td>{{line['status']}}</td>
+		<td>{{line['price']}}</td>
+
+	</tr>
+{% endfor %}
+</table>
+
+<a href="/C_logout">Logout</a>
+
+</body>
+
+
+</html>

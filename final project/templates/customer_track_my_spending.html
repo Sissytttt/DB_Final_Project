@@ -1,0 +1,29 @@
+<html>
+<head>
+</head>
+<body>
+
+
+<style type="text/css">
+	table, th, td{
+		border: 1px solid black;
+	}
+</style>
+
+<table>
+	<th>Money</th>
+
+
+{% for line in data %}
+	<tr>
+		<td>{{line['price']}}</td>
+	</tr>
+{% endfor %}
+</table>
+
+<a href="/C_logout">Logout</a>
+
+</body>
+
+
+</html>

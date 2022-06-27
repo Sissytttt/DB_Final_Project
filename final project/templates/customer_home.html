@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+</head>
+
+<body>
+{% if not message %}
+	<a href="/customer_view_my_flights">CustomerViewMyFlights</a>
+	<a href="/customer_purchase_tickets">CustomerPurchaseTickets</a>
+	<a href="/customer_search_flights">CustomerSearchFlights</a>
+	<a href="/customer_track_my_spending">CustomerTrackMySpending</a>
+{% endif %}
+
+{% if message %}
+	<a href="/C_logout">Logout</a>
+
+        <h4>15 most recent tweets from you and your followers </h4> </br>
+
+	{% endif %}
+</body>
+
+</html>

@@ -1,0 +1,19 @@
+<html>
+<head>
+</head>
+<body>
+<form action="/BAloginAuth" method="POST">
+	<input type="text" name = "BA_Email" placeholder="booking agent email" required/> </br>
+	<input type="password" name = "password" placeholder="password" required/></br>
+	<input type="submit" value = BA_Login />
+	{% if error %}
+		<p class="error"><strong>Error:</strong> {{error}}</p>
+	{% endif %}
+</form>
+
+<a href="/">Go back</a>
+
+</body>
+
+
+</html>

@@ -1,0 +1,224 @@
+<!DOCTYPE html><html lang="en"><head>
+    <script src="p5.js"></script>
+    <script src="p5.sound.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <meta charset="utf-8">
+    <title>DataBasesFinalProject</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600&display=swap" rel="stylesheet">
+    
+    <style>
+      *{
+        font-family: 'Baloo 2', cursive;
+      }
+
+      .name {
+        position:absolute;
+        margin-top: 20px;
+        margin-left: 7px;
+        font-size: 25px;
+        color: rgb(89, 186, 255);
+      }
+
+      .main {
+        position: absolute;
+        color: rgb(164, 213, 255);
+        /* display: flex;
+        align-items: center; */
+        margin-left: 32%;
+        margin-right: 32%;
+        margin-top: 10%;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 200px;
+        cursor: pointer;
+        transition-duration: 1s;
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+      }
+
+      .main:hover{
+        position: absolute;
+        color:#0e58c6;
+        margin-left: 30%;
+        margin-right: 30%;
+        margin-top: 8%;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 230px;
+        cursor: pointer;
+    }
+
+      /* .about {
+        position: absolute;
+        color:hsl(44, 36%, 80%);
+        padding: 0;
+        margin: 20px;
+        text-align: center;
+        font-size: 100px;
+        cursor: pointer;
+        transition-duration: 1s;
+    }
+
+    .about:hover{
+        position: absolute;
+        color:#ffffff;
+        padding: 0;
+        margin: 20px;
+        text-align: center;
+        font-size: 110px;
+    }
+
+    p {
+        display: block;
+        margin: 0;
+        /* font-size: 100px; 
+      } */
+
+    .sidebar {
+          height: 100%;
+          width: 0;
+          position: fixed;
+          z-index: 1;
+          top: 0;
+          left: 0;
+          background-color: rgb(119, 196, 255);
+          opacity: 0.7;
+          overflow-x: hidden;
+          transition: 0.5s;
+          padding-top: 80px;
+      }
+
+    .sidebar a {
+      padding: 32px 8px 8px 24px;
+      text-decoration: none;
+      font-size: 25px;
+      color: #0059d5;
+      display: block;
+      transition: 0.3s;
+    }
+
+    .sidebar h {
+      padding: 32px 0px 30px 24px;
+      text-decoration: none;
+      font-size: 30px;
+      color: #346be3;
+      display: block;
+    }
+
+
+    .sidebar a:hover {
+      font-size: 30px;
+
+    }
+
+    .sidebar .closebtn {
+      position: absolute;
+      top: 0;
+      right: 25px;
+      font-size: 36px;
+      margin-left: 50px;
+    }
+
+    .openbtn {
+      position: absolute;
+      padding: 20px;
+      margin-top: 15px;
+      font-size: 50px;
+      cursor: pointer;
+      background-color: Transparent;
+      background-repeat:no-repeat;
+      border: none;
+      color: rgb(47, 171, 254);
+      border: none;
+      transition: 1s;
+    }
+
+    .openbtn:hover {
+      font-size: 60px;
+      color: rgb(11, 88, 255);
+    }
+
+    #main {
+      transition: margin-left 1.5s;
+    }
+
+    @media screen and (max-height: 450px) {
+      .sidebar {padding-top: 15px;}
+      .sidebar a {font-size: 18px;}
+    }
+
+    /* reference: https://www.w3schools.com/howto/howto_js_collapse_sidebar.asp */
+    
+    </style>
+
+
+  </head>
+
+    <div class = "name">
+      <h>MeiHan&ShiyuanTian's airline company</h>
+    </div>
+
+  <body>
+
+    <div id="mySidebar" class="sidebar">
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+
+	  <a href="/customer_login">CustomerLogin</a>
+	  <a href="/booking_agent_login">BookingAgentLogin</a>
+	  <a href="/airline_staff_login">AirlineStaffLogin</a>
+	  <a href="/customer_register">CustomerRegister</a>
+	  <a href="/booking_agent_register">BookingAgentRegister</a>
+	  <a href="/airline_staff_register">AirlineStaffRegister</a>
+	  <a href="/publicsearch_city">PublicSearchCity</a>
+	  <a href="/publicsearch_flight">PublicSearchFlight</a>
+    </div>
+    
+    <div id="main">
+      <button class="openbtn" onclick="openNav()">☰</button>  
+    </div>
+    
+    <script>
+    function openNav() {
+      document.getElementById("mySidebar").style.width = "250px";
+      document.getElementById("main").style.marginLeft = "250px";
+    }
+    
+    function closeNav() {
+      document.getElementById("mySidebar").style.width = "0";
+      document.getElementById("main").style.marginLeft= "0";
+    }
+    </script>
+   
+   
+    <!-- <div class = "about">
+      <p> = </p>
+    </div> -->
+
+    <!-- <div class="about">
+      <button class="ss"> = </button>
+      <div class="dropdown-content">
+        <a href="#">Link 1</a>
+        <a href="#">Link 2</a>
+        <a href="#">Link 3</a>
+      </div>
+    </div> -->
+
+    <main>
+      <div class = "main">
+          <a href="indexP1.html" class="main">Airline Service</a>
+      </div>
+    
+
+      <div id="canvas-container">
+		<script src="sketch.js"></script>
+      </div>
+    </main>
+  
+
+</body></html>
+
+
+

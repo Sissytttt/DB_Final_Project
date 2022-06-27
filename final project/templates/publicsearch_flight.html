@@ -1,0 +1,34 @@
+<html>
+<head>
+</head>
+<body>
+<form action="/publicsearch_flight_result" method="POST">
+	<input type="text" name = "flight_number" placeholder="flight number" required/> </br>
+	<input type="text" name = "arrival_date" placeholder="arrival date" required/></br>
+	<input type="text" name = "departure_date" placeholder="departure date" required/> </br>
+	<input type="submit" value = Submit />
+</form>
+
+<style type="text/css">
+	table, th, td{
+		border: 1px solid black;
+	}
+</style>
+
+<table>
+	<th>status</th>
+
+
+{% for line in posts %}
+	<tr>
+		<td>{{line['status']}}</td>
+	</tr>
+{% endfor %}
+</table>
+
+<a href="/logout">Logout</a>
+
+</body>
+
+
+</html>

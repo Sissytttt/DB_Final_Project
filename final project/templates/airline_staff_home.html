@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+</head>
+
+<body>
+{% if not message %}
+	<a href="/airline_staff_view_my_flights">AirlineStaffViewMyFlights</a>
+	<a href="/airline_staff_create_flights">AirlineStaffCreateFlights</a>
+	<a href="/airline_staff_change_flight_status">AirlineStaffChangeFlightStatus</a>
+	<a href="/airline_staff_add_airplane">AirlineStaffAddAirplane</a>
+	<a href="/airline_staff_add_airport">AirlineStaffAddAirport</a>
+	<a href="/airline_staff_view_booking_agents">AirlineStaffViewBookingAgents</a>
+	<a href="/airline_staff_view_frequent_customers">AirlineStaffViewFrequentCustomers</a>
+	<a href="/airline_staff_view_reports">AirlineStaffViewReports</a>
+	<a href="/airline_staff_comparison_of_revenue_earned">AirlineStaffComparisonOfRevenueEarned</a>
+	<a href="/airline_staff_view_top_destinations">AirlineStaffViewTopDestinations</a>
+{% endif %}
+
+
+{% if message %}
+	<a href="/logout">Logout</a>
+	</br>
+	</br>
+
+{% endif %}
+</body>
+
+</html>
